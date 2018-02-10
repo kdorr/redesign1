@@ -15,12 +15,13 @@ perc['dollars'] = df['dollars']/sum
 #src = ColumnDataSource(df)
 perc = perc.sort_values('dollars', ascending=False)
 src = ColumnDataSource(perc)
+
 #Setup plot
 plot = figure(
-    plot_width=600, plot_height=600, x_axis_label="Organization", y_axis_label="percentage of funding", x_range=[row[0] for row in perc.values], y_range=Range1d(0,1)
+    plot_width=600, plot_height=600,
+    x_axis_label="Percentage of Funding", y_axis_label="Organization",
+    x_range=Range1d(0,1), y_range=[row[0] for row in perc.values]
 )
 
-plot.vbar(x='Organization', top='dollars', width=.5, source=src)
-plot.yaxis.bounds=(0,1)
-plot.xaxis.major_label_orientation = pi/2
+plot.hbar(y='Organization', height=.5, right='dollars', left=0, source=src)
 show(plot)
