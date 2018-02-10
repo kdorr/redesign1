@@ -10,6 +10,7 @@ df = pandas.read_csv("data.csv")
 sum = df['dollars'].sum()
 perc = df
 perc['dollars'] = df['dollars']/sum
+perc['remainder'] = 1 - df['dollars']
 
 #Format data
 #src = ColumnDataSource(df)
@@ -23,5 +24,6 @@ plot = figure(
     x_range=Range1d(0,1), y_range=[row[0] for row in perc.values]
 )
 
-plot.hbar(y='Organization', height=.5, right='dollars', left=0, source=src)
+plot.hbar_stack(['dollars', 'remainder'], y='Organization', height=.5, color=["#718dbf","#c9d9d3"], source=src)
+
 show(plot)
