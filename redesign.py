@@ -14,6 +14,7 @@ raw_src = ColumnDataSource(raw)
 
 raw_plot = figure(
     plot_width=600, plot_height=600,
+    title="Tier One Organization Budget Breakdown (raw numbers)",
     x_axis_label="Funding (in dollars)", y_axis_label="Organization",
     y_range=[row[0] for row in raw.values]
 )
@@ -32,6 +33,7 @@ src = ColumnDataSource(perc)
 #Setup plot
 perc_plot = figure(
     plot_width=600, plot_height=600,
+    title="Percentage of Tier One Budget by Organization",
     x_axis_label="Percentage of Funding", y_axis_label="Organization",
     x_range=Range1d(0,1), y_range=[row[0] for row in perc.values]
 )
