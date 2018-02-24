@@ -4,6 +4,13 @@ from math import pi
 from bokeh.plotting import figure, show
 from bokeh.models import ColumnDataSource, Range1d, NumeralTickFormatter, SingleIntervalTicker
 from bokeh.layouts import gridplot
+from bokeh.palettes import Blues
+
+#unifing variables
+font = "helvetica"
+palette = Blues[3]
+bar_color = palette[0]
+stack_color = palette[2]
 
 #Read data
 df = pandas.read_csv("data.csv")
@@ -31,7 +38,7 @@ raw_plot.line(x=160047, y=y, line_color="#8c8c8c")
 
 #plot data
 raw_plot.hbar(y='Organization', left=0, right='dollars',
-              height=.75, color="#718dbf",
+              height=.75, color=bar_color,
               source=raw_src)
 
 #Data labels
@@ -67,7 +74,7 @@ perc_plot = figure(
 )
 
 perc_plot.hbar_stack(['dollars', 'remainder'], y='Organization',
-                     height=.75, color=["#718dbf","#c9d9d3"],
+                     height=.75, color=[bar_color, stack_color],
                      source=src)
 
 perc_plot.xaxis[0].formatter = NumeralTickFormatter(format="0%")
@@ -77,8 +84,8 @@ for row in perc.values:
     vals.append("{:.2%}".format(row[1]))
 print(vals)
 perc_plot.text([row[1] for row in perc.values], [row[0] for row in perc.values],
-              text=["{:.2%}".format(row[1]) for row in perc.values],
-              text_font_size="10pt",
+              text=["{:.1%}".format(row[1]) for row in perc.values],
+              text_font_size="8pt",
               text_baseline="middle", x_offset=5)
 
 
